@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nanjing Temple Networks | Qixia in Stone</title>
+  <meta name="description" content="An interactive map of Buddhist sites connected to Nanjing's religious landscape.">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQb9v0rS9czv9eNf3lQkB0lVYQ5bB4A=" crossorigin="">
+  <style>
+    :root{--ink:#241f18;--paper:#f4efe5;--red:#8e3027;--line:#cdbfa9;--muted:#6f665b}
+    *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,"Times New Roman","Songti SC",serif}
+    a{color:inherit}.top{display:flex;justify-content:space-between;align-items:center;padding:18px 5vw;border-bottom:1px solid var(--line);font:700 12px Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}.top strong{letter-spacing:.25em}.top a{text-decoration:none}
+    main{max-width:1500px;margin:auto;padding:5.5vw}.eyebrow{font:700 11px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin:0 0 13px}.intro{max-width:760px;margin-bottom:38px}.intro h1{font-size:clamp(42px,6vw,86px);line-height:.94;letter-spacing:-.055em;margin:0 0 20px;font-weight:500}.intro p:last-child{font-size:18px;line-height:1.55;margin:0;color:#4e483f}
+    .workspace{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(300px,.78fr);min-height:690px;border:1px solid var(--line);background:#ddd}.map-wrap{position:relative;min-height:540px}#map{position:absolute;inset:0}.map-note{position:absolute;left:18px;bottom:18px;z-index:500;max-width:265px;padding:13px 14px;background:rgba(244,239,229,.94);border:1px solid var(--line);font:12px/1.4 Arial,sans-serif;color:#514b42}.map-note b{color:var(--red)}
+    .detail{background:var(--paper);padding:25px;display:flex;flex-direction:column;min-width:0}.detail img{width:100%;height:210px;object-fit:cover;background:#e3d9c9}.placeholder{height:210px;display:grid;place-items:center;background:#e3d9c9;color:var(--muted);font-style:italic;text-align:center;padding:30px}.detail .period{font:700 10px Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin:22px 0 8px}.detail h2{font-size:32px;line-height:1;margin:0 0 5px;font-weight:500}.cn{font-size:18px;color:var(--muted);margin:0 0 17px}.detail p{font-size:16px;line-height:1.52;margin:0 0 16px}.source{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font:12px/1.45 Arial,sans-serif;color:var(--muted)}.source a{color:var(--red)}
+    .site-list{margin:34px 0 0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}.site-list button{appearance:none;text-align:left;background:none;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:15px;cursor:pointer;font:inherit}.site-list button:hover,.site-list button.active{background:#e7ddcc}.site-list b{display:block;font-size:16px;font-weight:500}.site-list span{display:block;margin-top:4px;color:var(--muted);font:12px Arial,sans-serif}
+    .leaflet-control-attribution{font:10px Arial,sans-serif!important}.temple-dot{width:18px!important;height:18px!important;border-radius:50%;background:var(--red);border:3px solid #f8f2e7;box-shadow:0 1px 7px #382a20aa}.leaflet-popup-content-wrapper{border-radius:0;font-family:Georgia,serif}.leaflet-popup-content{margin:12px 14px}.leaflet-popup-content b{font-size:15px}
+    footer{padding:28px 5vw;color:var(--muted);font:12px Arial,sans-serif}@media(max-width:850px){main{padding:32px 18px}.workspace{grid-template-columns:1fr}.detail{min-height:480px}.site-list{grid-template-columns:repeat(2,1fr)}.map-wrap{min-height:500px}.top{padding:16px 18px}}
+  </style>
+</head>
+<body>
+  <header class="top"><a href="maps.html"><strong>Nanjing</strong> Temple Maps</a><a href="index.html">All projects</a></header>
+  <main>
+    <section class="intro"><p class="eyebrow">Nanjing Buddhist Landscapes</p><h1>A city of temples, sites, and memory.</h1><p>Click a point to place a temple in Nanjing’s present geography. The map uses OpenStreetMap coordinates for current mapped sites; historical foundations and earlier footprints require separate archaeological verification.</p></section>
+    <section class="workspace" aria-label="Interactive map and temple detail">
+      <div class="map-wrap"><div id="map"></div><div class="map-note"><b>How to read this map</b><br>Red points mark present mapped sites. The image and notes describe the site; they do not claim that every surviving building belongs to the same historical period.</div></div>
+      <aside class="detail" id="detail" aria-live="polite"></aside>
+    </section>
+    <section class="site-list" id="site-list" aria-label="Temple directory"></section>
+  </main>
+  <footer>Base map © OpenStreetMap contributors · Site photographs are credited through their linked Wikimedia Commons file pages.</footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    const commons='https://commons.wikimedia.org/wiki/';
+    const sites=[
+      {name:'Qixia Temple',cn:'栖霞寺',pos:[32.1535359,118.9529986],period:'Southern Dynasties foundation · later rebuilding',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Pagoda_at_Qixia_Temple_Nanjing.jpg?width=1200',credit:'Pagoda at Qixia Temple Nanjing.jpg',file:'File:Pagoda_at_Qixia_Temple_Nanjing.jpg',text:'The temple at Mount She anchors this project. Its present complex and Śarīra pagoda belong to a landscape repeatedly rebuilt, restored, and reinterpreted from the Southern Dynasties onward.'},
+      {name:'Jiming Temple',cn:'鸡鸣寺',pos:[32.0597171,118.7921868],period:'Early foundation · surviving complex rebuilt',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Jiming_Temple_Nanjing,_2019.jpg?width=1200',credit:'Jiming Temple Nanjing, 2019.jpg',file:'File:Jiming_Temple_Nanjing,_2019.jpg',text:'Near Xuanwu Lake and the Ming city wall, Jiming Temple makes visible the connection between Buddhist sites, the urban core, and the city’s changing skyline.'},
+      {name:'Linggu Temple',cn:'灵谷寺',pos:[32.0576780,118.8629106],period:'Ming landscape · modern memorial setting',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Linggu_Temple_in_Nanjing_2011-12.JPG?width=1200',credit:'Linggu Temple in Nanjing 2011-12.JPG',file:'File:Linggu_Temple_in_Nanjing_2011-12.JPG',text:'Linggu Temple occupies the eastern sacred landscape around Purple Mountain. Its present setting layers Buddhist architecture with Ming and Republican memorial history.'},
+      {name:'Dabao’en Temple',cn:'大报恩寺',pos:[32.0126512,118.7766043],period:'Ming imperial temple · archaeological museum',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Dabaoen_Temple_Pagoda,Nanjing,20140329.jpg?width=1200',credit:'Dabaoen Temple Pagoda,Nanjing,20140329.jpg',file:'File:Dabaoen_Temple_Pagoda,Nanjing,20140329.jpg',text:'The Great Bao’en Temple site shows how Buddhist patronage could be tied directly to Ming imperial power. The archaeological park preserves and interprets this former monumental complex.'},
+      {name:'Jinghai Temple',cn:'静海寺',pos:[32.0941771,118.7328570],period:'Ming site · later commemoration',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Jinghai_Si_-_grounds_-_P1070462.JPG?width=1200',credit:'Jinghai Si - grounds - P1070462.JPG',file:'File:Jinghai_Si_-_grounds_-_P1070462.JPG',text:'Near the Yangtze, Jinghai Temple is now also a memorial landscape. Its location makes it useful for tracing how religious sites became connected to maritime history and civic commemoration.'},
+      {name:'Qingliang Temple',cn:'清凉寺',pos:[32.0515055,118.7562351],period:'Urban mountain temple · rebuilt complex',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Qingliang_Temple_in_Nanjing_01_2013-03.JPG?width=1200',credit:'Qingliang Temple in Nanjing 01 2013-03.JPG',file:'File:Qingliang_Temple_in_Nanjing_01_2013-03.JPG',text:'On Qingliangshan in the city center, this temple demonstrates how a Buddhist site can remain legible within dense modern urban development.'},
+      {name:'Foding Temple',cn:'佛顶寺',pos:[31.9116416,118.7436503],period:'Contemporary temple at Niushou Mountain',img:null,credit:null,file:null,text:'Foding Temple is part of the modern Buddhist landscape at Niushou Mountain. A reliable freely reusable site photograph has not yet been added; this is intentional rather than a missing image.'}
+    ];
+    const map=L.map('map',{scrollWheelZoom:true}).setView([32.055,118.80],11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(map);
+    const icons=sites.map(()=>L.divIcon({className:'temple-dot',iconSize:[18,18],iconAnchor:[9,9]}));
+    let selected=0; const markers=[]; const detail=document.querySelector('#detail'); const list=document.querySelector('#site-list');
+    function render(i){selected=i;const s=sites[i]; detail.innerHTML=`${s.img?`<img src="${s.img}" alt="${s.name}">`:`<div class="placeholder">Reliable freely reusable photograph<br>not yet added</div>`}<p class="period">${s.period}</p><h2>${s.name}</h2><p class="cn">${s.cn}</p><p>${s.text}</p><p class="source">Coordinates: OpenStreetMap / Nominatim current-site result.${s.file?` Photograph: <a target="_blank" rel="noopener" href="${commons+s.file}">${s.credit}</a>.`:''}</p>`; document.querySelectorAll('.site-list button').forEach((b,n)=>b.classList.toggle('active',n===i)); markers[i].openPopup(); map.panTo(s.pos);}
+    sites.forEach((s,i)=>{const m=L.marker(s.pos,{icon:icons[i]}).addTo(map).bindPopup(`<b>${s.name}</b><br>${s.cn}`);m.on('click',()=>render(i));markers.push(m);const b=document.createElement('button');b.innerHTML=`<b>${s.name}</b><span>${s.cn}</span>`;b.onclick=()=>render(i);list.appendChild(b)});
+    render(0);
+  </script>
+</body>
+</html>
