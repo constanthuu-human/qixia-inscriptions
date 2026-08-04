@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Nanjing Temple Networks</title>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Nanjing Temple Networks">
+    <meta property="og:description" content="Explore Nanjing's Buddhist temple networks across six historical periods.">
+    <meta name="twitter:card" content="summary">
+    <meta name="description" content="Explore Nanjing's Buddhist temple networks across six historical periods.">
+    <link rel="stylesheet" href="../assets/css/temple-map.css">
+</head>
+<body>
+<header class="header">
+    <nav class="site-nav" aria-label="Website sections">
+        <a href="../index.html">Historical network</a>
+        <a href="./temple-map.html" aria-current="page">Qixia map</a>
+        <a href="./monk-day.html">A day as a monk</a>
+        <a href="./monks.html">Monks in the Jiankang story</a>
+        <a href="./buddhist-objects.html">Buddhist objects and places</a>
+        <a href="./buddhist-images.html">Buddhist images</a>
+        <a href="./buddhist-legends.html">Buddhist legends in Nanjing</a>
+        <a href="./buddhist-branches.html">Buddhist branches in Nanjing</a>
+        <a href="./inscriptions.html">Qixia inscriptions</a>
+    </nav>
+    <a class="back" href="maps.html">← Nanjing Temple Maps</a>
+    <h1>Nanjing Temple Networks Through Time</h1>
+</header>
+
+<main class="atlas" id="atlas"></main>
+
+<div class="drawer" id="drawer" hidden>
+    <div
+            class="sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="dTitle"
+            tabindex="-1"
+    >
+        <button class="close" id="close" type="button" aria-label="Close research card">×</button>
+        <div class="eyebrow" id="dPeriod"></div>
+        <h2 id="dTitle"></h2>
+        <div class="cn" id="dCn"></div>
+        <div class="tags">
+            <span class="tag" id="dTime"></span>
+            <span class="tag" id="dStatus"></span>
+        </div>
+        <div class="card-gallery" id="dImages" aria-label="Temple photographs"></div>
+        <div class="section">
+            <h3>At a glance</h3>
+            <p id="dLead"></p>
+        </div>
+        <div class="section">
+            <h3>Historical development</h3>
+            <p id="dDevelopment"></p>
+        </div>
+        <div class="section">
+            <h3 class="historical-value">Historical value</h3>
+            <p id="dSignificance"></p>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="../assets/js/temple-map.js"></script>
+</body>
+</html>

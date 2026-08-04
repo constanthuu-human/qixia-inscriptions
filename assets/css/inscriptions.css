@@ -1,0 +1,590 @@
+:root {
+    --ink: #201d18;
+    --paper: #eee8dc;
+    --light: #f7f4ed;
+    --red: #8b2e28;
+    --line: rgba(32, 29, 24, .2)
+}
+
+* {
+    box-sizing: border-box
+}
+
+html {
+    scroll-behavior: smooth
+}
+
+body {
+    margin: 0;
+    background: var(--light);
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", "Songti SC", serif
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+header {
+    position: absolute;
+    z-index: 3;
+    inset: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 28px 5vw;
+    color: white;
+    font: 700 12px Arial;
+    letter-spacing: .18em;
+    text-transform: uppercase
+}
+
+header strong {
+    letter-spacing: .34em
+}
+
+.hero {
+    position: relative;
+    min-height: 100vh;
+    color: white;
+    background: url(../images/qixia-hero.png) center/cover
+}
+
+.shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(17, 15, 12, .84), rgba(17, 15, 12, .28))
+}
+
+.hero-copy {
+    position: relative;
+    padding: 18vh 8vw 10vh;
+    width: min(800px, 90vw)
+}
+
+.label {
+    font: 700 11px Arial;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--red)
+}
+
+.hero .label {
+    color: #e1d4bd
+}
+
+h1 {
+    font-size: clamp(76px, 11vw, 160px);
+    font-weight: 400;
+    line-height: .78;
+    letter-spacing: -.055em;
+    margin: 35px 0
+}
+
+.hero-copy > p:not(.label) {
+    font-size: clamp(18px, 2vw, 25px);
+    line-height: 1.5;
+    max-width: 580px
+}
+
+.hero-copy > a {
+    display: inline-block;
+    margin-top: 38px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid;
+    font: 700 11px Arial;
+    letter-spacing: .15em;
+    text-transform: uppercase
+}
+
+.intro, .essay {
+    display: grid;
+    grid-template-columns:1fr 4fr;
+    gap: 6vw;
+    padding: 110px 7vw
+}
+
+h2 {
+    font-size: clamp(45px, 6vw, 82px);
+    font-weight: 400;
+    line-height: .98;
+    letter-spacing: -.045em;
+    margin: -10px 0 30px
+}
+
+.intro div p, .essay div p {
+    font-size: 19px;
+    line-height: 1.75;
+    max-width: 850px
+}
+
+.archive {
+    background: var(--paper);
+    padding: 110px 7vw
+}
+
+.archive-title {
+    display: grid;
+    grid-template-columns:1fr 4fr;
+    margin-bottom: 55px
+}
+
+.entries {
+    border-top: 1px solid
+}
+
+.entry {
+    display: grid;
+    grid-template-columns:70px 1fr 220px 30px;
+    align-items: center;
+    gap: 18px;
+    min-height: 112px;
+    border-bottom: 1px solid var(--line)
+}
+
+.entry > span, .entry > em {
+    font: 600 11px Arial;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #6e675d;
+    font-style: normal
+}
+
+.entry strong {
+    font-size: clamp(25px, 3vw, 42px);
+    font-weight: 400
+}
+
+.entry small {
+    font-size: 16px;
+    color: var(--red);
+    margin-left: 20px
+}
+
+.entry b {
+    font-size: 23px;
+    font-weight: 400
+}
+
+.pending {
+    opacity: .45
+}
+
+.stele {
+    padding-top: 50px
+}
+
+.stele-head {
+    padding: 100px 8vw 80px
+}
+
+.stele-head h2 {
+    font-size: clamp(62px, 9vw, 126px);
+    max-width: 900px
+}
+
+.cn {
+    font-size: 28px;
+    color: #776d60;
+    letter-spacing: .1em
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    gap: 35px;
+    padding: 22px 8vw;
+    background: rgba(247, 244, 237, .95);
+    border-block: 1px solid var(--line);
+    font: 700 11px Arial;
+    letter-spacing: .12em;
+    text-transform: uppercase
+}
+
+.texts {
+    display: grid;
+    grid-template-columns:1fr 1fr
+}
+
+.text {
+    padding: 90px 7vw;
+    border-bottom: 1px solid var(--line)
+}
+
+.text + .text {
+    background: #f1ece2;
+    border-left: 1px solid var(--line)
+}
+
+.scroll {
+    max-height: 760px;
+    overflow: auto;
+    margin-top: 35px;
+    padding-right: 20px;
+    font-size: 17px;
+    line-height: 1.85
+}
+
+.chinese {
+    font-family: "Songti SC", "STSong", serif;
+    font-size: 18px;
+    line-height: 2
+}
+
+.dark {
+    background: #26221c;
+    color: #f5efe3
+}
+
+.dark .label {
+    color: #d58b79
+}
+
+.figures {
+    padding: 110px 7vw;
+    background: var(--paper)
+}
+
+.grid {
+    display: grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line)
+}
+
+.grid article {
+    background: var(--paper);
+    padding: 34px;
+    min-height: 255px
+}
+
+.grid i {
+    display: block;
+    color: var(--red);
+    font-style: normal;
+    font-size: 25px;
+    margin-bottom: 50px
+}
+
+.grid h3 {
+    font-size: 25px;
+    font-weight: 400;
+    margin: 0 0 15px
+}
+
+.grid p {
+    line-height: 1.6;
+    color: #645d53
+}
+
+.placeholder {
+    min-height: 80vh;
+    padding: 18vh 8vw;
+    border-top: 1px solid var(--line)
+}
+
+.placeholder h2 {
+    font-size: clamp(62px, 9vw, 120px)
+}
+
+.placeholder a {
+    display: inline-block;
+    margin-top: 45px;
+    font: 700 11px Arial;
+    letter-spacing: .12em;
+    text-transform: uppercase
+}
+
+footer {
+    padding: 50px 7vw;
+    border-top: 1px solid var(--line);
+    font: 700 11px Arial;
+    letter-spacing: .12em;
+    text-transform: uppercase
+}
+
+@media (max-width: 760px) {
+    .intro, .essay, .archive-title {
+        grid-template-columns:1fr
+    }
+
+    .entry {
+        grid-template-columns:40px 1fr 25px
+    }
+
+    .entry em {
+        display: none
+    }
+
+    .entry small {
+        display: block;
+        margin: 7px 0 0
+    }
+
+    .texts {
+        grid-template-columns:1fr
+    }
+
+    .text + .text {
+        border-left: 0
+    }
+
+    .grid {
+        grid-template-columns:1fr
+    }
+
+    nav {
+        overflow: auto;
+        gap: 20px
+    }
+}
+
+/* Jiran entry: documentary image layouts */
+.jiran-hero {
+    display: grid;
+    grid-template-columns:minmax(0, 1.15fr) minmax(340px, .85fr);
+    min-height: 82vh;
+    background: #e9e2d5
+}
+
+.jiran-hero .stele-head {
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+.jiran-hero .stele-head h2 {
+    font-size: clamp(58px, 7.5vw, 112px)
+}
+
+.jiran-hero figure, .jiran-visual figure, .jiran-document figure {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    background: #181510
+}
+
+.jiran-hero figure {
+    min-height: 680px
+}
+
+.jiran-hero img, .jiran-visual img, .jiran-document img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover
+}
+
+.jiran-hero img {
+    filter: saturate(.72) contrast(1.04)
+}
+
+.jiran-hero figcaption, .jiran-visual figcaption, .jiran-document figcaption, .jiran-rubbings figcaption, .jiran-figure-photo figcaption {
+    font: 600 10px/1.5 Arial;
+    letter-spacing: .04em;
+    color: #6b6359
+}
+
+.jiran-hero figcaption, .jiran-visual figcaption, .jiran-document figcaption {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 16px;
+    padding: 10px 12px;
+    background: rgba(247, 244, 237, .9);
+    color: #3f3932
+}
+
+.jiran-lead {
+    max-width: 650px;
+    margin-top: 24px;
+    font-size: 20px;
+    line-height: 1.55;
+    color: #5f574d
+}
+
+.jiran-rubbings {
+    padding: 90px 7vw;
+    background: #1f1c17;
+    color: #f5efe3
+}
+
+.jiran-rubbings .archive-title {
+    margin-bottom: 40px
+}
+
+.jiran-rubbings .archive-title .label {
+    color: #d58b79
+}
+
+.rubbing-grid {
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    gap: 22px
+}
+
+.jiran-rubbings figure {
+    margin: 0
+}
+
+.jiran-rubbings img {
+    display: block;
+    width: 100%;
+    background: #0c0b09
+}
+
+.jiran-rubbings figcaption {
+    margin-top: 12px;
+    color: #bdb2a2
+}
+
+.jiran-note {
+    max-width: 900px;
+    margin: 28px 0 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #c8bcab
+}
+
+.jiran-visual {
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    min-height: 680px
+}
+
+.jiran-visual .visual-copy {
+    padding: 100px 7vw
+}
+
+.jiran-visual .visual-copy p {
+    font-size: 18px;
+    line-height: 1.75
+}
+
+.jiran-visual figure {
+    min-height: 620px
+}
+
+.jiran-visual.dark figure {
+    background: #0f0e0c
+}
+
+.jiran-visual.dark figcaption {
+    background: rgba(38, 34, 28, .9);
+    color: #eee6d8
+}
+
+.jiran-figure-photo {
+    display: grid;
+    grid-template-columns:minmax(280px, .8fr) 1.2fr;
+    gap: 42px;
+    align-items: center;
+    margin: 0 0 46px;
+    padding: 0 0 46px;
+    border-bottom: 1px solid var(--line)
+}
+
+.jiran-figure-photo figure {
+    margin: 0
+}
+
+.jiran-figure-photo img {
+    display: block;
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover
+}
+
+.jiran-figure-photo h3 {
+    font-size: clamp(34px, 4vw, 55px);
+    font-weight: 400;
+    margin: 0 0 18px
+}
+
+.jiran-figure-photo p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #645d53
+}
+
+.jiran-document {
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    background: #e9e2d5
+}
+
+.jiran-document .visual-copy {
+    padding: 100px 7vw
+}
+
+.jiran-document .visual-copy p {
+    font-size: 18px;
+    line-height: 1.75
+}
+
+.jiran-document figure {
+    min-height: 620px
+}
+
+.jiran-sources {
+    padding: 60px 7vw 100px;
+    background: #e9e2d5;
+    border-top: 1px solid var(--line)
+}
+
+.jiran-sources p {
+    max-width: 980px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #5e574e
+}
+
+.jiran-sources a {
+    border-bottom: 1px solid #9b8e7d
+}
+
+@media (max-width: 760px) {
+    .jiran-hero, .jiran-visual, .jiran-document, .jiran-figure-photo {
+        grid-template-columns:1fr
+    }
+
+    .jiran-hero figure, .jiran-visual figure, .jiran-document figure {
+        min-height: 480px
+    }
+
+    .rubbing-grid {
+        grid-template-columns:1fr
+    }
+
+    .jiran-rubbings {
+        padding: 70px 5vw
+    }
+
+    .jiran-figure-photo {
+        gap: 24px
+    }
+}
+
+@media (max-width: 760px) {
+    html, body {
+        overflow-x: hidden
+    }
+
+    nav {
+        contain: inline-size
+    }
+}
+
+.research-note {
+    margin-top: 24px;
+    color: #655e54;
+    font-size: 13px;
+    line-height: 1.7
+}
+
+.research-note.compact {
+    margin-top: 12px
+}

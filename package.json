@@ -1,0 +1,8 @@
+{
+  "name": "qixia-inscriptions",
+  "private": true,
+  "scripts": {
+    "check": "node scripts/validate.mjs",
+    "sync-nav": "node scripts/sync-navigation.mjs"
+  }
+}
